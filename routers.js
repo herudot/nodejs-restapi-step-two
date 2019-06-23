@@ -4,8 +4,9 @@ const Students = require('./models/students');
 
 // GET method
 router.get('/students', function(req, res){
-  console.log('GET method');
-  res.send('This is GET method request.');
+    Students.find({}).then(function(result){
+        res.send(result);
+    });
 });
 
 // POST method
