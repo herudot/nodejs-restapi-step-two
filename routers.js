@@ -16,12 +16,22 @@ router.post('/student', function(req, res, next){
   }).catch(next);
 });
 
-// PUT method
-router.put('/student/:id', function(req, res){
-  console.log('PUT method');
-  res.send('This is PUT method request.');
+// PUT method request
+router.put('/student/:id', function(req, res, next){
+    Students.findOneAndUpdate({_id: req.params.id}, req.body)
+    .then(function(result){
+        Students.findOne({_id:req.params.id}).then(function(result){
+            res.send(result);
+        });
+    });
 });
 
-// DELETE method
+// DELETE method request
+router.delete('/student/:id', function(req, res, next){
+    Students.findOneAndDelete({_id: req.params.id})
+    .then(function(result){
+        res.send(result);
+    });
+});
 
 module.exports = router;
