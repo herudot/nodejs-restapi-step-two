@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Students = require('./models/students');
 
 // GET method
 router.get('/students', function(req, res){
@@ -8,9 +9,11 @@ router.get('/students', function(req, res){
 });
 
 // POST method
-router.post('/student', function(req, res){
-  console.log('POST method');
-  res.send('This is POST method request.');
+router.post('/student', function(req, res, next){
+  // Saving data student into mongodb
+  Students.create(req.body).then(function(result){
+    res.send(result);
+  }).catch(next);
 });
 
 // PUT method
